@@ -73,7 +73,7 @@ def classify_city(city):
     return "Other City"
 
 # ---------- PDF table builder ----------
-def df_to_pdf_table(df, title="FLASH"):
+def df_to_pdf_table(df, title="MTAJER"):
     if "اجمالي عدد القطع في الطلب" in df.columns:
         df = df.rename(columns={"اجمالي عدد القطع في الطلب": "عدد القطع"})
 
@@ -120,7 +120,7 @@ def df_to_pdf_table(df, title="FLASH"):
 
     tz = pytz.timezone('Africa/Cairo')
     today = datetime.datetime.now(tz).strftime("%Y-%m-%d")
-    title_text = f"{title} | FLASH | {today}"
+    title_text = f" | MTAJER | {today}"
 
     elements = [
         Paragraph(fix_arabic(title_text), styleTitle),
@@ -129,7 +129,7 @@ def df_to_pdf_table(df, title="FLASH"):
 
     table = Table(data, colWidths=col_widths[:len(df.columns)], repeatRows=1)
     table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#64B5F6")),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor("#FBC02D")),
         ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
         ('GRID', (0, 0), (-1, -1), 0.25, colors.black),
         ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
@@ -141,8 +141,8 @@ def df_to_pdf_table(df, title="FLASH"):
     return elements
 
 # ---------- Streamlit App ----------
-st.set_page_config(page_title="🔥 Flash Orders Processor", layout="wide")
-st.title("🔥 Flash Orders Processor")
+st.set_page_config(page_title="🔥 MTAJER Orders Processor", layout="wide")
+st.title("🔥 MTAJER Orders Processor")
 st.markdown("....ارفع الملفات يا رايق علشان تستلم الشيت")
 
 uploaded_files = st.file_uploader(
@@ -204,7 +204,7 @@ if uploaded_files:
 
         tz = pytz.timezone('Africa/Cairo')
         today = datetime.datetime.now(tz).strftime("%Y-%m-%d")
-        file_name = f"سواقين فلاش - {today}.pdf"
+        file_name = f"سواقين متاجر - {today}.pdf"
 
         st.success("✅تم تجهيز ملف PDF ✅")
         st.download_button(
@@ -213,4 +213,5 @@ if uploaded_files:
             file_name=file_name,
             mime="application/pdf"
         )
+
 
